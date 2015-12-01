@@ -7,6 +7,8 @@ package facades;
 
 import entity.Airport;
 import entity.FlightInstance;
+import entity.Passenger;
+import entity.Reservation;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -38,5 +40,13 @@ public class AirlineFacade {
         query.setParameter("date", departureDate);
         query.setParameter("seats", numOfTickets);
         return query.getResultList();
+    }
+    
+    public void makeReservation(String flightID, int numberOfSeats, String reserveName, int reservePhone, String reserveEmail, List<Passenger> passengers){
+        Reservation res = new Reservation(flightID, numberOfSeats, reserveName, reservePhone, reserveEmail, passengers);
+        em.getTransaction().begin();
+        em.persist(res);
+        em.getTransaction().commit();
+        em.close();   
     }
 }

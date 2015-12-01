@@ -25,7 +25,8 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "FlightInstance.findBySeats", query = "SELECT f.availableSeats FROM FlightInstance AS f"),
     @NamedQuery(name = "FlightInstance.findByOrigin", query = "SELECT f.origin from FlightInstance AS f"),
     @NamedQuery(name = "FlightInstance.findWithoutDest", query = "SELECT f FROM FlightInstance f WHERE f.origin = :from AND f.departureDate = :date AND f.availableSeats >= :seats"),
-    @NamedQuery(name = "FlightInstance.findWithDest", query = "SELECT f FROM FlightInstance Where f.origin = :from AND f.destination = :to AND f.departureDate = :date AND f.availableSeats >= :seats")
+    @NamedQuery(name = "FlightInstance.findWithDest", query = "SELECT f FROM FlightInstance WHERE f.origin = :from AND f.destination = :to AND f.departureDate = :date AND f.availableSeats >= :seats"),
+    @NamedQuery(name = "FlightInstance.findByFlightNumber", query = "SELECT f FROM FlightInstance WHERE f.FlightNumber = :fnumber")
 })
 @Entity
 public class FlightInstance implements Serializable {
@@ -37,7 +38,7 @@ public class FlightInstance implements Serializable {
     private int departureTime;
     private Date departureDate;
     private int flightTime;
-    private int flightNumber;
+    private String flightNumber;
     @OneToMany
     private Airport destination;
     @OneToMany
@@ -45,7 +46,7 @@ public class FlightInstance implements Serializable {
     private int availableSeats;
     private int price;
 
-    public FlightInstance(int departureTime, Date departureDate, int flightTime, int flightNumber, Airport destination, Airport origin, int availableSeats, int price) {
+    public FlightInstance(int departureTime, Date departureDate, int flightTime, String flightNumber, Airport destination, Airport origin, int availableSeats, int price) {
         this.departureTime = departureTime;
         this.departureDate = departureDate;
         this.flightTime = flightTime;
@@ -82,11 +83,11 @@ public class FlightInstance implements Serializable {
         this.flightTime = flightTime;
     }
 
-    public int getFlightNumber() {
+    public String getFlightNumber() {
         return flightNumber;
     }
 
-    public void setFlightNumber(int flightNumber) {
+    public void setFlightNumber(String flightNumber) {
         this.flightNumber = flightNumber;
     }
 
