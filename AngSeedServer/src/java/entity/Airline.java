@@ -25,7 +25,7 @@ public class Airline implements Serializable {
     private Long id;
     private String name;
     @OneToMany (mappedBy = "airline") @ElementCollection
-    private List<Flight> flights;
+    private List<Flights> flights;
 
     public Airline(String name) {
         this.name = name;

@@ -49,9 +49,9 @@ public class FlightInstance implements Serializable {
     private int availableSeats;
     private int price;
     @ManyToOne
-    private Flight flight;
+    private Flights flight;
 
-    public FlightInstance(int departureTime, Date departureDate, int flightTime, String flightNumber, Airport destination, Airport origin, int availableSeats, int price, Flight flight)
+    public FlightInstance(int departureTime, Date departureDate, int flightTime, String flightNumber, Airport destination, Airport origin, int availableSeats, int price, Flights flight)
     {
         this.departureTime = departureTime;
         this.departureDate = departureDate;
@@ -123,11 +123,11 @@ public class FlightInstance implements Serializable {
         this.price = price;
     }
 
-    public Flight getFlight() {
+    public Flights getFlight() {
         return flight;
     }
 
-    public void setFlight(Flight flight) {
+    public void setFlight(Flights flight) {
         this.flight = flight;
     }
 
