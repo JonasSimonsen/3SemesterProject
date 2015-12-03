@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -25,6 +26,10 @@ public class Airport implements Serializable {
     private String name;
     private String city;
     private String timeZone;
+    @OneToOne(mappedBy = "origin")
+    private FlightInstance origin;
+    @OneToOne(mappedBy = "destination")
+    private FlightInstance destination;
 
     public Airport(String IATACode, String name, String city, String timeZone) {
         this.IATACode = IATACode;

@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -36,24 +38,30 @@ public class FlightInstance implements Serializable {
     private Long id;
 
     private int departureTime;
+    @Temporal (javax.persistence.TemporalType.DATE)
     private Date departureDate;
     private int flightTime;
     private String flightNumber;
-    @OneToMany
+    @OneToOne
     private Airport destination;
-    @OneToMany
+    @OneToOne
     private Airport origin;
     private int availableSeats;
     private int price;
+    @ManyToOne
+    private Flight flight;
 
-    public FlightInstance(int departureTime, Date departureDate, int flightTime, String flightNumber, Airport destination, Airport origin, int availableSeats, int price) {
+    public FlightInstance(int departureTime, Date departureDate, int flightTime, String flightNumber, Airport destination, Airport origin, int availableSeats, int price, Flight flight)
+    {
         this.departureTime = departureTime;
         this.departureDate = departureDate;
         this.flightTime = flightTime;
         this.flightNumber = flightNumber;
         this.destination = destination;
+        this.origin = origin;
         this.availableSeats = availableSeats;
         this.price = price;
+        this.flight = flight;
     }
 
     public FlightInstance() {
@@ -113,6 +121,14 @@ public class FlightInstance implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     public Airport getOrigin() {

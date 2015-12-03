@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,7 @@ public class Reservation implements Serializable {
     private int reservePhone;
     private String ReserveEmail;
     @OneToMany
+    @ElementCollection
     List<Passenger> passengerList;
 
     public Reservation(String flightID, int numberOfSeats, String reserveName, int reservePhone, String ReserveEmail, List<Passenger> passengerList) {

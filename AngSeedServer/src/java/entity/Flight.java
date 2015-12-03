@@ -6,10 +6,13 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,16 +25,25 @@ public class Flight implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    
-    @OneToMany
+    private Long id;  
+    @ManyToOne
     private Airline airline;
+    @OneToMany (mappedBy = "flight") @ElementCollection
+    private List<FlightInstance> flightInstances;
 
     private int flightNumber;
     private int numberOfSeats;
 
-    public Flight(int flightNumber, int numberOfSeats) {
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
+    }
+
+    public Flight(Airline airline, int flightNumber, int numberOfSeats) {
+        this.airline = airline;
         this.flightNumber = flightNumber;
         this.numberOfSeats = numberOfSeats;
     }
