@@ -6,49 +6,44 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
- * @author Andreas
+ * @author Andreas & Jonas
  */
 @Entity
-public class Airline implements Serializable {
+public class Airline implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @OneToMany (mappedBy = "airline") @ElementCollection
-    private List<Flights> flights;
+    private int id;
+    private String url;
 
-    public Airline(String name) {
-        this.name = name;
+    public Airline()
+    {
     }
 
-    public Airline() {
-    }
-    
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-   
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public void setUrl(String url)
+    {
+        this.url = url;
+    }  
 }
