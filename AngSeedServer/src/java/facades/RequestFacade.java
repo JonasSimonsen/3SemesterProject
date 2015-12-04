@@ -5,7 +5,7 @@
  */
 package facades;
 
-import entity.Flights;
+import entity.Flight;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -15,13 +15,13 @@ import java.util.concurrent.Future;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import util.GetFlights;
+import util.GetFlight;
 
 /**
  *
  * @author Andreas & Jonas
  */
-public class FlightFacade
+public class RequestFacade
 {
 
     private List<String> urls;
@@ -36,25 +36,26 @@ public class FlightFacade
         return urls;
     }
 
-    public List<Flights> getFlights(String from, String date, int persons) throws InterruptedException, ExecutionException {
+    public List<Flight> getFlights(String airport, String date, int numberOfTickets) throws InterruptedException, ExecutionException
+    {
         String finalUrl;
         urls = getAirlines();
-        List<Flights> flights = new ArrayList();
-        List<Future<List<Flights>>> list = new ArrayList();
+        List<Flight> flights = new ArrayList();
+        List<Future<List<Flight>>> list = new ArrayList();
         ExecutorService executor = Executors.newFixedThreadPool(4);
 
         for (String url : urls)
         {
-            finalUrl = url + "api/flightinfo/" + from + "/" + date + "/" + persons + "";
+            finalUrl = url + "api/flightinfo/" + airport + "/" + date + "/" + numberOfTickets + "";
             System.out.println(finalUrl);
-            Future<List<Flights>> future = executor.submit(new GetFlights(finalUrl));
+            Future<List<Flight>> future = executor.submit(new GetFlight(finalUrl));
             list.add(future);
         }
 
-        for (Future<List<Flights>> future : list)
+        for (Future<List<Flight>> future : list)
         {
-            List<Flights> temp = future.get();
-            for (Flights temp1 : temp)
+            List<Flight> temp = future.get();
+            for (Flight temp1 : temp)
             {
                 flights.add(temp1);
             }
@@ -62,25 +63,26 @@ public class FlightFacade
         return flights;
     }
 
-    public List<Flights> getFlights(String from, String to, String date, int persons) throws InterruptedException, ExecutionException {
+    public List<Flight> getFlights(String airport, String destination, String date, int numberOfTickets) throws InterruptedException, ExecutionException
+    {
         String finalUrl;
         urls = getAirlines();
-        List<Flights> flights = new ArrayList();
-        List<Future<List<Flights>>> list = new ArrayList();
+        List<Flight> flights = new ArrayList();
+        List<Future<List<Flight>>> list = new ArrayList();
         ExecutorService executor = Executors.newFixedThreadPool(4);
 
         for (String url : urls)
         {
-            finalUrl = url + "api/flightinfo/" + from + "/" + to + "/" + date + "/" + persons + "";
+            finalUrl = url + "api/flightinfo/" + airport + "/" + destination + "/" + date + "/" + numberOfTickets + "";
             System.out.println(finalUrl);
-            Future<List<Flights>> future = executor.submit(new GetFlights(finalUrl));
+            Future<List<Flight>> future = executor.submit(new GetFlight(finalUrl));
             list.add(future);
         }
 
-        for (Future<List<Flights>> future : list)
+        for (Future<List<Flight>> future : list)
         {
-            List<Flights> temp = future.get();
-            for (Flights temp1 : temp)
+            List<Flight> temp = future.get();
+            for (Flight temp1 : temp)
             {
                 flights.add(temp1);
             }
@@ -88,3 +90,4 @@ public class FlightFacade
         return flights;
     }
 }
+

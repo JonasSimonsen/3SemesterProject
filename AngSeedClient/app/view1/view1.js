@@ -16,20 +16,20 @@ angular.module('myApp.view1', ['ngRoute'])
 
                 var baseUrl = 'api/flightinfo/';
 
+
                 var year = $scope.myDate.getFullYear();
                 var month = $scope.myDate.getMonth();
                 var day = $scope.myDate.getDate();
                 $scope.date = new Date(year, month, day, 1);
-                // var searchDate= $scope.date.toISOString();
-                var searchDate = JSON.stringify($scope.date);
+                var formatDate = $scope.date.toISOString();
 
 
                 if ($scope.destination !== "null")
                 {
-                    var attributes = $scope.from + "/" + $scope.to + "/" + searchDate + "/" + $scope.persons;
+                    var attributes = $scope.origin + "/" + $scope.destination + "/" + formatDate + "/" + $scope.numberOfSeats;
                 } else
                 {
-                    var attributes = $scope.from + "/" + searchDate + "/" + $scope.persons;
+                    var attributes = $scope.origin + "/" + formatDate + "/" + $scope.numberOfSeats;
                 }
 
                 var url = baseUrl + attributes;

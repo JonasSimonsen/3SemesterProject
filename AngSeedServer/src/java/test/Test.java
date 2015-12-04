@@ -5,7 +5,7 @@
  */
 package test;
 
-import facades.FlightFacade;
+import facades.RequestFacade;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -16,9 +16,9 @@ public class Test
 {
     public static void main(String[] args) throws InterruptedException, ExecutionException
     {
-        FlightFacade air = new FlightFacade();
+        RequestFacade rf = new RequestFacade();
                 
-        System.out.println(air.getFlights("CPH","STN","2016-01-04T23:00:00.000Z", 1));
+        System.out.println(rf.getFlights("CPH","STN","2016-01-04T23:00:00.000Z", 1));
     }
 }
 

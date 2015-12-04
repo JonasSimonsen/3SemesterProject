@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import entity.Flights;
+import entity.Flight;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -23,7 +23,7 @@ import java.util.concurrent.Callable;
  *
  * @author Jonas
  */
-public class GetFlights implements Callable<List<Flights>>
+public class GetFlight implements Callable<List<Flight>>
 {
 
     private URL url = null;
@@ -33,19 +33,22 @@ public class GetFlights implements Callable<List<Flights>>
     private final StringBuilder sb = new StringBuilder();
     private BufferedReader bufferedReader = null;
     private String airlineName;
-    private List<Flights> flights = null;
+    private List<Flight> flights = null;
     private Gson gson = null;
     private JsonObject object;
     private JsonArray jsonArray;
 
-    public GetFlights(String finalUrl)
+    public GetFlight(String finalUrl)
     {
         this.finalUrl = finalUrl;
     }
 
-    //kalder metoden getAirlines i facaden, callable - sende get ud til alle i databasen som modtager json resultater hvorefter det videresendes som json resultater
+    //kalde metoden getAirlines i facade
+    //callable - sende get ud til alle i databasen
+    //modtage json resultater
+    //videresende json resultater
     @Override
-    public List<Flights> call() throws Exception
+    public List<Flight> call() throws Exception
     {
         flights = new ArrayList<>();
         object = new JsonObject();
@@ -71,15 +74,15 @@ public class GetFlights implements Callable<List<Flights>>
             {
                 JsonObject json = (JsonObject) jsonArray.get(i);
 
-                Flights f = new Flights(
+                Flight f = new Flight(
                         airlineName,
                         json.get("date").getAsString(),
-                        json.get("persons").getAsInt(),
-                        json.get("price").getAsDouble(),
+                        json.get("numberOfSeats").getAsInt(),
+                        json.get("totalPrice").getAsDouble(),
                         json.get("flightID").getAsString(),
                         json.get("traveltime").getAsInt(),
-                        json.get("to").getAsString(),
-                        json.get("from").getAsString());
+                        json.get("destination").getAsString(),
+                        json.get("origin").getAsString());
                 flights.add(f);
             }
         }
