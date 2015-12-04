@@ -5,7 +5,6 @@
  */
 package facades;
 
-import util.GetFlights;
 import entity.Flights;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.concurrent.Future;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import util.GetFlights;
 
 /**
  *
@@ -36,8 +36,7 @@ public class FlightFacade
         return urls;
     }
 
-    public List<Flights> getFlights(String airport, String date, int numberOfTickets) throws InterruptedException, ExecutionException
-    {
+    public List<Flights> getFlights(String from, String date, int persons) throws InterruptedException, ExecutionException {
         String finalUrl;
         urls = getAirlines();
         List<Flights> flights = new ArrayList();
@@ -46,8 +45,8 @@ public class FlightFacade
 
         for (String url : urls)
         {
-            finalUrl = url + "api/flightinfo/" + airport + "/" + date + "/" + numberOfTickets + "";
-            // System.out.println(finalUrl);
+            finalUrl = url + "api/flightinfo/" + from + "/" + date + "/" + persons + "";
+            System.out.println(finalUrl);
             Future<List<Flights>> future = executor.submit(new GetFlights(finalUrl));
             list.add(future);
         }
@@ -63,8 +62,7 @@ public class FlightFacade
         return flights;
     }
 
-    public List<Flights> getFlights(String airport, String destination, String date, int numberOfTickets) throws InterruptedException, ExecutionException
-    {
+    public List<Flights> getFlights(String from, String to, String date, int persons) throws InterruptedException, ExecutionException {
         String finalUrl;
         urls = getAirlines();
         List<Flights> flights = new ArrayList();
@@ -73,7 +71,7 @@ public class FlightFacade
 
         for (String url : urls)
         {
-            finalUrl = url + "api/flightinfo/" + airport + "/" + destination + "/" + date + "/" + numberOfTickets + "";
+            finalUrl = url + "api/flightinfo/" + from + "/" + to + "/" + date + "/" + persons + "";
             System.out.println(finalUrl);
             Future<List<Flights>> future = executor.submit(new GetFlights(finalUrl));
             list.add(future);
@@ -90,4 +88,3 @@ public class FlightFacade
         return flights;
     }
 }
-

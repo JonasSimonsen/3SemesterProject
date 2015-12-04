@@ -1,6 +1,6 @@
 <form class="navbar-form navbar-left" role="search">
     <div class="form-group" >
-        <select name="From" class="form-control" ng-model="origin">
+        <select name="From" class="form-control" ng-model="from">
             <option value="AUH">Abu Dhabi - Abu Dhabi International (AUH), United Arab Emirates</option> 
             <option value="ALC">Alicante (ALC), Spain</option> 
             <option value="AMM">Amman - Queen Alia International Airport (AMM), Jordan</option> 
@@ -138,7 +138,7 @@
             <option value="VIE">Wien (Vienna) - Vienna International (VIE), Austria</option> 
             <option value="ZRH">Zurich (Zürich) - Kloten (ZRH), Switzerland</option>
         </select>
-        <select name="To" class="form-control" ng-model="destination">
+        <select name="To" class="form-control" ng-model="to">
             <option value="null">Any Destination</option>
             <option value="AUH">Abu Dhabi - Abu Dhabi International (AUH), United Arab Emirates</option> 
             <option value="ALC">Alicante (ALC), Spain</option> 
@@ -278,7 +278,7 @@
             <option value="ZRH">Zurich (Zürich) - Kloten (ZRH), Switzerland</option>
         </select>
         <input type="date" class="form-control" ng-model="date">
-        <input type="text" class="form-control" placeholder="Number of Passengers" ng-model="nop">
+        <input type="text" class="form-control" placeholder="Number of Passengers" ng-model="persons">
         <button type="submit" class="btn btn-default" ng-click="search()">Submit</button>
     </div>
 </form>
@@ -297,13 +297,13 @@
 <tbody>
     <tr ng-repeat="data in data">
             <td>{{data.airline}} </td>
-             <td>{{data.numberOfSeats}} </td>
+             <td>{{data.persons}} </td>
             <td>{{data.date}} </td>
-            <td>{{data.totalPrice}} </td>
+            <td>{{data.price}} </td>
             <td>{{data.flightID}} </td>
             <td>{{data.traveltime}} </td>       
-            <td>{{data.origin}} </td>
-            <td>{{data.destination}} </td>
+            <td>{{data.to}} </td>
+            <td>{{data.from}} </td>
         </tr>
 </tbody>
 </table>

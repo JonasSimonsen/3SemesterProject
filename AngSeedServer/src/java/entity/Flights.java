@@ -12,10 +12,8 @@ import javax.persistence.Id;
  *
  * @author Andreas & Jonas
  */
-@Entity
 public class Flights
 {
-    @Id
     private String airlineName;
     private String date;
     private int persons;

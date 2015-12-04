@@ -4,37 +4,40 @@ angular.module('myApp.view1', ['ngRoute'])
 
         .config(['$routeProvider', function ($routeProvider) {
                 $routeProvider.when('/view1', {
-                    templateUrl: 'app/view1/view1.html',
-                    controller: 'View1Ctrl',
-                    controllerAs: 'ctrl'
+                    templateUrl: 'view1/view1.html',
+                    controller: 'View1Ctrl'
                 });
             }])
 
-        
 
-        .controller('View1Ctrl', function ($scope, $http)
-        {
-            
+        .controller('View1Ctrl', function ($http, $scope) {
+
             $scope.search = function () {
 
                 var baseUrl = 'api/flightinfo/';
-                var searchDate= $scope.date.toISOString();
-             
+
+                var year = $scope.myDate.getFullYear();
+                var month = $scope.myDate.getMonth();
+                var day = $scope.myDate.getDate();
+                $scope.date = new Date(year, month, day, 1);
+                // var searchDate= $scope.date.toISOString();
+                var searchDate = JSON.stringify($scope.date);
+
 
                 if ($scope.destination !== "null")
                 {
-                    var attributes = $scope.origin + "/" + $scope.destination + "/" + searchDate + "/" + $scope.nop;
+                    var attributes = $scope.from + "/" + $scope.to + "/" + searchDate + "/" + $scope.persons;
                 } else
                 {
-                    var attributes = $scope.origin + "/" + searchDate + "/" + $scope.nop;
+                    var attributes = $scope.from + "/" + searchDate + "/" + $scope.persons;
                 }
 
                 var url = baseUrl + attributes;
-                
+
                 $http.get(url).then(function successCallBack(res) {
                     $scope.data = res.data;
                 }, function errorCallBack(res) {
-                    alert("noget gik galt");
+                    alert("LORT");
                 });
             };
         });

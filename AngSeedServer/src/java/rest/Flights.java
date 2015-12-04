@@ -38,7 +38,7 @@ public class Flights
     @GET
     @Produces("application/json")
     @Consumes("application/json")
-    @Path("{airport}/{date}/{persons}")
+    @Path("{from}/{date}/{persons}")
     public String FlightNoTo(@PathParam("from") String from, @PathParam("date")String date, @PathParam("persons") int persons) throws InterruptedException, ExecutionException
     {
         List<entity.Flights> flights = air.getFlights(from, date, persons);
@@ -62,7 +62,7 @@ public class Flights
    @GET
     @Produces("application/json")
     @Consumes("application/json")
-    @Path("{airport}/{destination}/{date}/{numberOfTickets}")
+    @Path("{from}/{to}/{date}/{persons}")
     public String FlightWithTo(@PathParam("from") String from,@PathParam("to") String to, @PathParam("date")String date, @PathParam("persons") int persons) throws InterruptedException, ExecutionException
     {
         List<entity.Flights> flights = air.getFlights(from, to, date, persons);
